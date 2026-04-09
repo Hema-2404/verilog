@@ -1,0 +1,32 @@
+module tb_logicgates;
+
+    reg a, b;
+    wire and_y, or_y, not_y, nand_y, nor_y, xor_y, xnor_y;
+
+    logicgates uut (
+        .a(a),
+        .b(b),
+        .and_y(and_y),
+        .or_y(or_y),
+        .not_y(not_y),
+        .nand_y(nand_y),
+        .nor_y(nor_y),
+        .xor_y(xor_y),
+        .xnor_y(xnor_y)
+    );
+
+    initial begin
+	    $dumpfile("tb_logicgates.vcd");
+	    $dumpvars(0,tb_logicgates);
+        $monitor("a=%b b=%b | AND=%b OR=%b NOT=%b NAND=%b NOR=%b XOR=%b XNOR=%b",
+                  a,b,and_y,or_y,not_y,nand_y,nor_y,xor_y,xnor_y);
+
+        a=0; b=0;
+        #10 a=0; b=1;
+        #10 a=1; b=0;
+        #10 a=1; b=1;
+
+        #10 $finish;
+    end
+
+endmodule
