@@ -1,0 +1,20 @@
+module tb_t_latch;
+    reg T, EN;
+    wire Q;
+
+    t_latch uut (.T(T), .EN(EN), .Q(Q));
+
+    initial begin
+        $dumpfile("t_latch.vcd");
+        $dumpvars(0, tb_t_latch);
+
+        $monitor("EN=%b T=%b Q=%b", EN, T, Q);
+
+        EN=1; T=0; #10;
+        EN=1; T=1; #10;
+        EN=1; T=1; #10;
+        EN=0; T=1; #10;
+
+        $finish;
+    end
+endmodule
