@@ -1,0 +1,35 @@
+module tb_nbit_register;
+    parameter N = 8;
+
+    reg clk, rst, en;
+    reg [N-1:0] D;
+    wire [N-1:0] Q;
+
+    nbit_register #(N) uut (
+        .clk(clk),
+        .rst(rst),
+        .en(en),
+        .D(D),
+        .Q(Q)
+    );
+
+    // Clock generation
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("nbit_register.vcd");
+        $dumpvars(0, tb_nbit_register);
+
+        clk = 0;
+        rst = 1; en = 0; D = 8'b00000000; #10;
+
+        rst = 0; en = 1; D = 8'b10101010; #10;
+        D = 8'b11110000; #10;
+
+        en = 0; D = 8'b00001111; #10; 
+
+        rst = 1; #10; 
+
+        $finish;
+    end
+endmodule
