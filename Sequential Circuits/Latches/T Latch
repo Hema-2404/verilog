@@ -1,0 +1,11 @@
+module t_latch (
+    input T, EN,
+    output reg Q
+);
+    always @ (T or EN or Q) begin
+        if (EN) begin
+            if (T)
+                Q = ~Q;
+        end
+    end
+endmodule
