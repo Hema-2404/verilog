@@ -1,0 +1,20 @@
+module tb_t_ff;
+    reg T, clk;
+    wire Q;
+
+    t_ff uut (.T(T), .clk(clk), .Q(Q));
+
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("t_ff.vcd");
+        $dumpvars(0, tb_t_ff);
+
+        clk=0;
+        T=0; #10;
+        T=1; #20;
+        T=0; #10;
+
+        $finish;
+    end
+endmodule
