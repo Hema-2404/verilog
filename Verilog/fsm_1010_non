@@ -1,0 +1,47 @@
+module fsm_1010_non(
+    input rst,clk,din,
+    output reg detected
+);
+parameter S0=2'b00;
+parameter S1=2'b01;
+parameter S2=2'b10;
+parameter S3=2'b11;
+reg[1:0] present_state,next_state;
+always @(posedge clk or posedge rst)begin
+if(rst)
+begin 
+present_state <=S0;
+end
+else
+present_state<=next_state;
+end
+always@(*) begin
+case(present_state)
+S0:begin
+if(din==1'b1)
+next_state=S1;
+else
+next_state=S0;
+end
+S1:begin
+if(din==1'b0)
+next_state=S2;
+else
+next_state=S1;
+end
+S2:begin
+if(din==1'b1)
+next_state=S3;
+else
+next_state=S1;
+end
+S3:begin
+if(din==1)
+next_state=S1;
+else
+next_state=S0;
+end
+default:next_state=S0;
+endcase
+end
+endmodule
