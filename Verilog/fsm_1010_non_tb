@@ -1,0 +1,27 @@
+module fsm_1010_non_tb;
+reg clk,rst,din;
+wire detected;
+fsm_1010_non uut (.clk(clk),
+             .rst(rst),
+	     .din(din),
+	     .detected(detected)
+	     );	   
+	    always #5 clk=~clk;  
+initial begin 
+  $dumpfile("fsm_1010_non_tb.vcd");
+  $dumpvars(0,fsm_1010_non_tb);
+  $monitor("clk=%b rst=%b din=%b detector=%b",clk,rst,din,detected);
+  clk=0;
+  rst=0;
+  din=0;
+  
+	 
+	  rst=1'b1;#10;
+  	  rst=1'b0;#10;
+	  din=1'b1;#10;
+	  din=1'b0;#10;
+	  din=1'b1;#10;
+          din=1'b0;#10;
+$finish;
+end
+endmodule
