@@ -1,0 +1,57 @@
+module fsm_moore_0011(input clk,rst,din,
+                      output reg out
+);
+parameter S0=2'b00;
+parameter S0=2'b01;
+parameter S0=2'b10;
+parameter S0=2'b11;
+reg[1:0] present_state,next_state;
+always @(posedge clk or posedge rst)begin
+if(rst)
+present_state<=S0;
+else
+present_state<=next_state;
+end
+always@(*)begin 
+case(present_state)
+S0:begin 
+if(din==1'b0)
+next_state=S1;
+else
+next_state=S0;
+end
+S1:begin
+if(din==1'b0)
+next_state=S2;
+else
+next_state=S0;
+end
+S2:begin
+if(din==1'b1)
+next_state=S3;
+else
+next_state=S2;
+end
+S3:begin
+if(din==1'b1)
+next_state=S4;
+else
+next_state=S1;
+end
+S2:begin
+if(din==1'b0)
+next_state=S1;
+else
+next_state=S0;
+end
+default:next_state=S0;
+endcase
+end
+always@(*) begin 
+case(state)
+S4:out=1;
+default:out=0;
+endcase
+end 
+endmodule
+
