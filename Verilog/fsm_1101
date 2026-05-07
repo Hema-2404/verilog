@@ -1,0 +1,27 @@
+module fsm_1101(input clk,rst,din,
+		output reg out 
+);
+parameter S0=2'b00;
+parameter S1=2'b01;
+parameter S2=2'b10;
+parameter S3=2'b11;
+reg[1:0]present_state,next_state;
+always @(posedge clk) begin
+if(rst)
+present_state<=S0;
+else
+present_state<=next_state;
+end
+always @(*) begin 
+case(present_state)
+S0:next_state=din?S1:S0;
+S1:next_state=din?S2:S0;
+S2:next_state=din?S2:S3;
+S3:next_state=din?S0:S0;
+default:next_state=S0;
+endcase
+end
+always @(*)begin
+out=(present_state == S3 && din);
+end
+endmodule
