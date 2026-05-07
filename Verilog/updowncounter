@@ -1,0 +1,22 @@
+module updowncounter#(
+parameter WIDTH=4
+)(
+		input rst_n,
+		input clk,
+		input en,
+		input up,
+		input wire load,
+		input wire [WIDTH-1:0]din,
+		output reg [WIDTH-1:0] count
+);
+always@(posedge clk or negedge rst_n) begin 
+if(!rst_n) count <=0;
+else if(load) count <=din;
+else if(en) count <=up ? count +1:count-1;
+end 
+endmodule
+
+
+
+		
+
