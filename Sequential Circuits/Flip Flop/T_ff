@@ -1,0 +1,15 @@
+module T_ff(
+		input clk,
+		input rst_n,
+		input T,
+		output reg  q,
+		output q_bar
+);
+assign q_bar=~q;
+always @(posedge clk or negedge rst_n)begin
+if(!rst_n)
+q <= 1'b0;
+else 
+q <= T;
+end
+endmodule
